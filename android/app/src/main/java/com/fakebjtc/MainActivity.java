@@ -1,6 +1,12 @@
 package com.fakebjtc;
 
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.PersistableBundle;
+
 import com.facebook.react.ReactActivity;
+
+import androidx.annotation.Nullable;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +17,19 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "FakeBJTC";
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    SplashScreen.show(this);
+    super.onCreate(savedInstanceState);
+    Handler splashHandle = new Handler();
+    splashHandle.postDelayed(new Runnable() {
+      @Override
+      public void run() {
+        SplashScreen.hide(MainActivity.this);
+      }
+    }, 2000);
+
   }
 }

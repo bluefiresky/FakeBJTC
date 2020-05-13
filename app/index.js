@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, AppState, ActivityIndicator, Text, NativeAppEventEmitter, Platform, DeviceEventEmitter } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 
 import { Actions, Router, Scene, Modal, OpenPro, Overlay, Stack, Lightbox, Drawer } from 'react-native-router-flux';
 import { StackViewStyleInterpolator } from 'react-navigation-stack';
+
+import { XColor } from 'app/config';
 
 import Scenes from './views';
 
@@ -30,8 +32,16 @@ export default class FakeBJTC extends Component {
     super(props);
   }
 
+  componentWillMount(){
+  }
+
   render() {
-    return this._renderRoot();
+    return (
+      <View style={{flex:1}}>
+        <StatusBar translucent={true} backgroundColor={XColor.transparent}/>
+        {this._renderRoot()}
+      </View>
+    )
   }
 
   _renderRoot(){
@@ -52,6 +62,7 @@ export default class FakeBJTC extends Component {
       <Lightbox key="root">
         <Stack key='main' transitionConfig={horizontalTransition}>
           <Scene key={'main'} hideNavBar component={Scenes.MainView}/>
+          <Scene key={'applyJJ'} hideNavBar component={Scenes.ApplyJJView}/>
         </Stack>
       </Lightbox>
     )

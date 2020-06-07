@@ -12,5 +12,6 @@ export const styles = {
   screenH:H,
   absoluteView:{ top:0, right:0, bottom:0, left:0, position:'absolute' },
   centerContainer:{ alignItems:'center', justifyContent:'center' },
+  centerRow:{ flexDirection:'row', alignItems:'center' },
   testBorder:{ borderWidth:1, borderColor:'#333333' }
 };

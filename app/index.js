@@ -8,6 +8,7 @@ import { XColor } from 'app/config';
 
 import Scenes from './views';
 
+console.disableYellowBox = true;
 
 const stateHandler = (prevState, newState, action) => {
   console.log('%c onStateChange: ACTION -->> ', action);
@@ -63,6 +64,8 @@ export default class FakeBJTC extends Component {
         <Stack key='main' transitionConfig={horizontalTransition}>
           <Scene key={'main'} hideNavBar component={Scenes.MainView}/>
           <Scene key={'applyJJ'} hideNavBar component={Scenes.ApplyJJView}/>
+          <Scene key={'applyedJJ'} hideNavBar component={Scenes.ApplyedJJView}/>
+          <Scene key={'JJinfo'} hideNavBar component={Scenes.JJInfoView}/>
         </Stack>
       </Lightbox>
     )

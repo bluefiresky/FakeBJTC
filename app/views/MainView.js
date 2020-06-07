@@ -7,7 +7,8 @@ import { XStyle, XColor } from 'app/config';
 import { TestView } from './TestView';
 
 
-const ApplyDate = '20200601';
+const FirstApplyDate = '20200601';
+const Duration = 7;
 
 class MainView extends Component{
   constructor(props) {
@@ -15,14 +16,23 @@ class MainView extends Component{
 
     this.jjButtonStyle = {
       position:'absolute',
-      right:32,
-      top:256,
+      left:28,
+      top:225,
       opacity:0
     };
 
   }
 
   componentWillMount(){
+
+    let now = moment();
+    let firstApplyDate = moment(FirstApplyDate);
+    let duration = moment.duration(now.diff(firstApplyDate));
+
+    let yushu = (duration.as('days'))%Duration;
+    let lastDays = Duration - Math.ceil(yushu);
+
+    console.log(' 111111 -->> ', yushu);
   }
 
   render(){
@@ -41,8 +51,7 @@ class MainView extends Component{
   }
 
   _onPress(){
-    // Actions.applyJJ();
-    Actions.applyedJJ({applyDate:ApplyDate});
+    Actions.applyedJJ({applyDate:'20200608'});
   }
 
 }

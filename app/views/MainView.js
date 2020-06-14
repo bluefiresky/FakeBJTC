@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import { View, Image, Text, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Image, Text, TouchableOpacity, StatusBar, AsyncStorage } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
 
 import { XStyle, XColor } from 'app/config';
+import * as StorageHelper from 'app/utility/StorageHelper';
+
 import { TestView } from './TestView';
+
 
 
 const FirstApplyDate = '20200601';
 const Duration = 7;
+const ApplyDateKey = 'apply-date-key';
 
 class MainView extends Component{
   constructor(props) {
@@ -24,15 +28,26 @@ class MainView extends Component{
   }
 
   componentWillMount(){
+    // let now = moment();
+    // let firstApplyDate = moment(FirstApplyDate);
+    // let duration = moment.duration(now.diff(firstApplyDate));
+    //
+    // let yushu = (duration.as('days'))%Duration;
+    // let lastDays = Duration - Math.ceil(yushu);
 
-    let now = moment();
-    let firstApplyDate = moment(FirstApplyDate);
-    let duration = moment.duration(now.diff(firstApplyDate));
+    // console.log(' 111111 -->> ', yushu);
+  }
 
-    let yushu = (duration.as('days'))%Duration;
-    let lastDays = Duration - Math.ceil(yushu);
+  componentDidMount(){
+    this._getPrevApplyDate((date) => {
+      this.endEffectDate = moment('20200608', "YYYYMMDD").add(Duration,'days');
+      this.leftDate = this.endEffectDate.subtract('天').from(moment(), true).substring(0,1);
+      console.log(' 888989898 -->> ', date, this.endEffectDate, this.leftDate);
 
-    console.log(' 111111 -->> ', yushu);
+      if(parseInt(this.leftDate) === 0) {
+        this._setNextApplyDate();
+      }
+    });
   }
 
   render(){
@@ -51,7 +66,22 @@ class MainView extends Component{
   }
 
   _onPress(){
-    Actions.applyedJJ({applyDate:'20200608'});
+    this._getPrevApplyDate((date) => {
+      Actions.applyedJJ({applyDate:date});
+    });
+  }
+
+  _getPrevApplyDate(complete){
+    StorageHelper.get(ApplyDateKey, (date) => {
+      complete && complete(date);
+    });
+  }
+
+  _setNextApplyDate(complete){
+    const nextDate = moment().add(1,'day').format('YYYYMMDD');
+    StorageHelper.save(ApplyDateKey, nextDate, (success) => {
+
+    });
   }
 
 }

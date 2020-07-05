@@ -10,7 +10,7 @@ import { TestView } from './TestView';
 
 
 
-const FirstApplyDate = '20200601';
+const FirstApplyDate = '20200706';
 const Duration = 7;
 const ApplyDateKey = 'apply-date-key';
 
@@ -40,7 +40,7 @@ class MainView extends Component{
 
   componentDidMount(){
     this._getPrevApplyDate((date) => {
-      this.endEffectDate = moment('20200608', "YYYYMMDD").add(Duration,'days');
+      this.endEffectDate = moment(date, "YYYYMMDD").add(Duration,'days');
       this.leftDate = this.endEffectDate.subtract('天').from(moment(), true).substring(0,1);
       console.log(' 888989898 -->> ', date, this.endEffectDate, this.leftDate);
 
